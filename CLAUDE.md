@@ -54,6 +54,20 @@ Built so far: the landing, register, login, terms, and privacy pages render. The
 
 This is a step-by-step course project. Routes that return "coming in Step N" in `app.py`, and the stubs in `database/db.py`, are placeholders for later steps.
 
+## Development roadmap
+
+Steps are taken from the placeholder comments in the code. Build them in order. Steps 2, 5, and 6 aren't named in the code yet.
+
+1. Database setup: `get_db()`, `init_db()`, `seed_db()` in `database/db.py`. Not built.
+2. Not specified in the code yet.
+3. Logout (`/logout` placeholder in `app.py`). Not built.
+4. Profile page (`/profile` placeholder). Not built.
+5. Not specified in the code yet.
+6. Not specified in the code yet.
+7. Add expense (`/expenses/add` placeholder). Not built.
+8. Edit expense (`/expenses/<int:id>/edit` placeholder). Not built.
+9. Delete expense (`/expenses/<int:id>/delete` placeholder). Not built.
+
 ## Conventions
 
 - Templates extend `templates/base.html`. Page-specific stylesheets are linked in that template's `{% block head %}`, e.g. `landing.css` in `landing.html`, not in `base.html`.
