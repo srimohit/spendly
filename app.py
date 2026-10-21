@@ -1,8 +1,12 @@
-from flask import Flask, render_template
+import os
 
-from database.db import init_db, seed_db
+from flask import Flask, redirect, render_template, request, session, url_for
+from werkzeug.security import check_password_hash
+
+from database.db import get_user_by_email, init_db, seed_db
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 with app.app_context():
     init_db()
@@ -23,8 +27,22 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+
+        user = get_user_by_email(email) if email and password else None
+        if user is None or not check_password_hash(user["password_hash"], password):
+            return render_template(
+                "login.html", error="Invalid email or password.", email=email
+            )
+
+        session["user_id"] = user["id"]
+        session["user_name"] = user["name"]
+        return redirect(url_for("profile"))
+
     return render_template("login.html")
 
 
